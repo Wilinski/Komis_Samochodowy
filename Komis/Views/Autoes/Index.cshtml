@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Komis.Data.Auto>
+
+@{
+    ViewData["Title"] = "Komis Janusza";
+}
+
+<h1>Komis Janusza</h1>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Zdjęcie
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Marka)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kolor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RokProdukcji)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Przebieg)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cena)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img src="@item.Link" width="200px">
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marka)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kolor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RokProdukcji)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Przebieg)km
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cena)zl
+            </td>
+            @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                }
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> 
+                    </td>
+                }
+            </tr>
+
+}
+    </tbody>
+</table>
